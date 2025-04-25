@@ -1,0 +1,128 @@
+.hide-on-xl {
+    display: block;
+}
+
+.show-on-xl {
+    display: none;
+}
+
+@media (min-width: 1536px) {
+    .hide-on-xl {
+        display: none;
+    }
+
+    .show-on-xl {
+        display: block;
+    }
+}
+
+.password-input-wrapper {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    background-color: #EFF4F7;
+    border-radius: 0.5rem;
+    border: 1px solid #D1D5DB;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.password-input-wrapper.no-password {
+    border-color: #EF4444;
+}
+
+.password-input-wrapper:focus-within {
+    border-width: 2px;
+    border-color: #6B7280;
+}
+
+@media (min-width: 1536px) {
+    .password-input-wrapper {
+        height: 50px;
+    }
+}
+
+.confirm-password {
+    margin-top: 15px;
+}
+
+@media (min-width: 1536px) {
+    .confirm-password {
+        margin-top: 25px;
+    }
+}
+
+
+.input-style {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 90%;
+    height: 100%;
+    background-color: #EFF4F7;
+    border-radius: 0.5rem;
+    outline: none;
+    color: #6B7280;
+    font-size: 14px;
+}
+
+@media (min-width: 1536px) {
+    .input-style {
+        font-size: 23px;
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1535px) {
+    .input-style {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .input-style {
+        font-size: 13px;
+    }
+}
+
+
+.icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    height: 100%;
+}
+
+.strength-color-1{
+    color: #fc0000;
+    font-weight: 700;
+}
+
+.strength-color-2{
+    color: #fc8600;
+    font-weight: 700;
+}
+
+.strength-color-3{
+    color: #099509;
+    font-weight: 700;
+}
+
+
+.strength-text-common{
+    color: black;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.error-message-password{
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: 5px;
+}
+/* text-[12px] pl-[5px] pt-[5px] text-#ef4444 */
+.input-errors-text{
+    font-size: 12px;
+    padding-left: 5px;
+    padding-top: 5px;
+    color: #ef4444;
+}
