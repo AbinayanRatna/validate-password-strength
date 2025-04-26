@@ -28,6 +28,23 @@ The code for this is given under `Basic Usage` section below.
 
 ## 📦 Installation
 
+
+Before using the package, make sure you have the following peer dependencies installed:
+
+- `react`
+- `react-dom`
+- `react-icons`
+
+You can install them using npm or yarn:
+
+```bash
+# Using npm
+npm install react react-dom react-icons
+
+# Or using yarn
+yarn add react react-dom react-icons
+```
+After installing the above dependencies, do the following to install package.
 ### Install via npm
 
 `npm install validate-password-strength --save`
