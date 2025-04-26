@@ -1,6 +1,6 @@
 {
   "name": "validate-password-strength",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -20,23 +20,38 @@
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "microbundle": "^0.15.1",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.3"
-  },
-  "dependencies": {
+    "typescript": "^5.8.3",
     "react-icons": "^5.5.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/AbinayanRatna/validate-password-strength.git"
   },
-  "keywords": ["npm", "password","password-strength-checker","strength-checker", "check password strength", "password strength checker","strength checker", "strength checker","password checker","password checker strength","strength password checker","check-password-strength","password-checker","password-checker-strength","strength-password-checker"],
+  "keywords": [
+    "npm",
+    "password",
+    "password-strength-checker",
+    "strength-checker",
+    "check password strength",
+    "password strength checker",
+    "strength checker",
+    "strength checker",
+    "password checker",
+    "password checker strength",
+    "strength password checker",
+    "check-password-strength",
+    "password-checker",
+    "password-checker-strength",
+    "strength-password-checker"
+  ],
   "author": "Abinayan Ratnasingam",
   "license": "MIT"
 }
