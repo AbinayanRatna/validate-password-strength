@@ -36,6 +36,12 @@ export interface PasswordFieldWithStrengthProps extends InputHTMLAttributes<HTML
   errorMessageClassName?: string;
   passwordInputWrapperClassName?: string;
   confirmPasswordWrapperClassName?: string;
+
+  minUppercase?: number;
+  minLowercase?: number;
+  minNumbers?: number;
+  minSpecialChars?: number;
+  minLength?: number;
 }
 
 export const PasswordFieldWithStrength = forwardRef<
@@ -63,6 +69,13 @@ export const PasswordFieldWithStrength = forwardRef<
   errorMessageClassName = "",
   passwordInputWrapperClassName = "",
   confirmPasswordWrapperClassName = "",
+
+  minUppercase = 1,
+  minLowercase = 1,
+  minNumbers = 1,
+  minSpecialChars = 1,
+  minLength = 8,
+
   ...restProps
 }, ref) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -88,23 +101,26 @@ export const PasswordFieldWithStrength = forwardRef<
 
   const errorMessages = [
     '',
-    'Password must contain at least 1 uppercase letter',
-    'Password must contain at least 1 lowercase letter',
-    'Password must contain at least 1 numeric digit',
-    'Password must contain at least 1 special character(@,#..)',
-    'Password length must be greater than 8 characters'
+    `Password must contain at least ${minUppercase} uppercase letter`,
+    `Password must contain at least ${minLowercase} lowercase letter`,
+    `Password must contain at least ${minNumbers} numeric digit`,
+    `Password must contain at least ${minSpecialChars} special character(@,#..)`,
+    `Password length must be greater than ${minLength} characters`
   ];
 
   const regexPatterns = [
-    /^.{1,7}$/,
-    /^(?:[a-z]{8,}|[A-Z]{8,}|[0-9]{8,}|[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,})$/,
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#*$%^&+=]).{8,}$/,
-    /(?=.*[A-Z])/,
-    /(?=.*[a-z])/,
-    /(?=.*[0-9])/,
-    /(?=.*[!@#*$%^&+=])/,
-    /^.{8,}$/,
+    new RegExp(`^.{1,${minLength - 1}}$`),
+    new RegExp(`^(?:[a-z]{${minLength},}|[A-Z]{${minLength},}|[0-9]{${minLength},}|[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{${minLength},})$`),
+   
   ];
+
+  const patterns = {
+    upper: new RegExp(`(.*[A-Z]){${minUppercase},}`),
+    lower: new RegExp(`(.*[a-z]){${minLowercase},}`),
+    digit: new RegExp(`(.*[0-9]){${minNumbers},}`),
+    special: new RegExp(`(.*[!@#*$%^&+=]){${minSpecialChars},}`),
+    totalLength: new RegExp(`^.{${minLength},}$`)
+  };
 
   useImperativeHandle(ref, () => ({
     validate: () => {
@@ -158,7 +174,7 @@ export const PasswordFieldWithStrength = forwardRef<
             if (inputValue !== "") {
               setInputErrors(prev => ({ ...prev, noPassword: false }));
 
-              if (regexPatterns[2].test(inputValue)) {
+              if (patterns.digit.test(inputValue) && patterns.lower.test(inputValue) && patterns.special.test(inputValue) && patterns.totalLength.test(inputValue) && patterns.upper.test(inputValue)) {
                 setPasswordStatus({ strong: true, medium: false, weak: false });
               } else if (regexPatterns[1].test(inputValue)) {
                 setPasswordStatus({ strong: false, medium: true, weak: false });
@@ -168,11 +184,16 @@ export const PasswordFieldWithStrength = forwardRef<
                 setPasswordStatus({ strong: false, medium: true, weak: false });
               }
 
-              if (!regexPatterns[3].test(inputValue)) setErrorMessageNumber(1);
-              else if (!regexPatterns[4].test(inputValue)) setErrorMessageNumber(2);
-              else if (!regexPatterns[5].test(inputValue)) setErrorMessageNumber(3);
-              else if (!regexPatterns[6].test(inputValue)) setErrorMessageNumber(4);
-              else if (!regexPatterns[7].test(inputValue)) setErrorMessageNumber(5);
+              const uppercaseCount = (inputValue.match(/[A-Z]/g) || []).length;
+              const lowercaseCount = (inputValue.match(/[a-z]/g) || []).length;
+              const digitCount = (inputValue.match(/[0-9]/g) || []).length;
+              const specialCharCount = (inputValue.match(/[!@#*$%^&+=]/g) || []).length;
+
+              if (uppercaseCount < minUppercase) setErrorMessageNumber(1);
+              else if (lowercaseCount < minLowercase) setErrorMessageNumber(2);
+              else if (digitCount < minNumbers) setErrorMessageNumber(3);
+              else if (specialCharCount < minSpecialChars) setErrorMessageNumber(4);
+              else if (inputValue.length < minLength) setErrorMessageNumber(5);
               else setErrorMessageNumber(0);
             } else {
               setPasswordStatus({ strong: false, medium: false, weak: false });
@@ -201,8 +222,8 @@ export const PasswordFieldWithStrength = forwardRef<
 
       {/* Password Strength */}
       {passwordStatus.weak && (
-        <p className={`strength-text-common ${strengthTextClassName}`} 
-        style={strengthTextCommon}
+        <p className={`strength-text-common ${strengthTextClassName}`}
+          style={strengthTextCommon}
         >
           Password strength: <span className="strength-color-1" style={strengthColor1}>Weak</span>
         </p>

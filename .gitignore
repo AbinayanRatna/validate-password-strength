@@ -12,7 +12,6 @@ yarn-error.log*
 
 # system files
 .DS_Store
-.env
 
 # test coverage
 coverage/
