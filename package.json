@@ -1,6 +1,6 @@
 {
   "name": "validate-password-strength",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -36,5 +36,7 @@
     "type": "git",
     "url": "https://github.com/AbinayanRatna/validate-password-strength.git"
   },
+  "keywords": ["npm", "password","password-strength-checker","strength-checker", "check password strength", "password strength checker","strength checker", "strength checker","password checker","password checker strength","strength password checker","check-password-strength","password-checker","password-checker-strength","strength-password-checker"],
+  "author": "Abinayan Ratnasingam",
   "license": "MIT"
 }
